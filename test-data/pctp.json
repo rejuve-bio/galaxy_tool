@@ -1,0 +1,35 @@
+{
+    "requests": {
+      "nodes": [
+        {
+          "node_id": "n1",
+          "id": "",
+          "type": "gene",
+          "properties": {
+            "gene_type": "protein_coding"
+          }
+        },
+        {
+          "node_id": "n2",
+          "id": "",
+          "type": "transcript",
+          "properties": {}
+        },
+        {
+      "node_id": "n3",
+          "id": "",
+          "type": "protein",
+          "properties": {
+            "protein_name": "ANKE1"
+          }
+        }
+      ],
+      "predicates": [
+        {
+          "type": "transcribed to",
+          "source": "n1",
+          "target": "n2"
+        }
+     ]
+    }
+  }

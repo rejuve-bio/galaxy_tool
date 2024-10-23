@@ -1,0 +1,36 @@
+{
+    "requests": {
+      "nodes": [
+        {
+          "node_id": "gene_1",
+          "id": "",
+          "type": "gene",
+          "properties": {}
+        },
+        {
+          "node_id": "transcript_1",
+          "id": "",
+          "type": "transcript",
+          "properties": {}
+        },
+        {
+      "node_id": "protein_1",
+          "id": "",
+          "type": "protein",
+          "properties": {}
+        }
+      ],
+      "predicates": [
+        {
+          "type": "transcribed from",
+          "source": "transcript_1",
+          "target": "gene_1"
+        },
+        {
+          "type": "translates to",
+          "source": "transcript_1",
+          "target": "protein_1"
+        }      
+     ]
+    }
+  }

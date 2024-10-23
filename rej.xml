@@ -1,0 +1,82 @@
+<tool id="rej" name="Rejuve" version="0.1.0+galaxy0" python_template_version="3.5" profile="21.05">
+    <requirements>
+    </requirements>
+
+    <stdio>
+        <exit_code range=":-2" level="warning" description="Low disk space" />
+        <exit_code range="1:" level="fatal"  />
+        <regex match="Error:"  level="fatal" />
+    </stdio>
+
+    <command detect_errors="exit_code"><![CDATA[
+
+    python3 '$__tool_directory__/service.py'
+    #if $service.select == 'qb'
+          -query = $service.template 
+
+    #elif $service.select == 'nl'
+          -prompt $service.prompt
+    #elif $service.select == 'hg'
+          -hg $service.param1 $service.param2
+    #end if
+
+    ]]></command>
+
+    <inputs>
+
+        <conditional name="service">
+
+            <param type="select" name="select" label="Service">
+                    <option value="qb">Query Builder</option>
+                    <option value="nl">Prompt</option>
+                    <option value="hg">Hypothesis</option>
+            </param>
+
+            <when value="nl">
+                <param type="text" format="data" name="prompt" label="Enter your prompt" />
+            </when>
+
+
+            <when value="qb">
+
+            <param type="select" name="template" label="Pick a template">
+                    <option value="init">Use a visualizer</option>
+                    <option value='gwas'>Find all GWAS variants of a gene that are located in enhancers and identify the associated genes of these enhancers</option>
+                    <option value='gtp'>Find a gene, its transcript, and the associated protein, establishing relationships of transcription and translation.</option>
+                    <option value='pctp'>Find a protein-coding gene, its transcript, and the associated protein (ANKE1), establishing a transcription relationship from the gene to the transcript.</option>
+            </param>
+        
+            </when>
+
+            <when value="hg">
+
+                <param type="text" name="param1" label="Input parameter 1 "/>
+                <param type="text" name="param2" label="Input parameter 2"/>
+            
+            </when>
+
+        </conditional> 
+
+    </inputs>
+
+    <outputs>
+
+        <data name="output1" format="json" label="${tool.name}: qb | json">
+            <filter>service['select']  == "qb"</filter>
+        </data>
+
+        <data name="output2" format="txt" label="${tool.name}: nl | txt">
+            <filter>service['select'] == "nl"</filter>
+        </data>
+
+
+        <data name="output3" format="json" label="${tool.name}: hg | json">
+            <filter>service['select'] == "hg"</filter>
+        </data>
+
+    </outputs>
+
+    <help><![CDATA[
+    TODO: Fill in help.
+    ]]></help>
+</tool>
