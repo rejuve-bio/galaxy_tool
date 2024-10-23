@@ -1,7 +1,7 @@
 # Variables
-HOST = 
-PORT = 
-GALAXY_ROOT = 
+HOST = 100.67.47.42
+PORT = 9094
+GALAXY_ROOT = ../galaxy 
 
 start-planemo:
 	@echo "Starting Planemo server on host $(HOST) and port $(PORT)"

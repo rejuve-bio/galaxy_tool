@@ -25,7 +25,7 @@ yarn --version
 npm i --global yarn
 ```
 
-**create a virtual machine**
+**create a virtual environment**
 ```bash 
 virtualenv .venv; . .venv/bin/activate
 ```

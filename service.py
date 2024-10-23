@@ -10,9 +10,6 @@ ANNOTATION_URL = 'http://46.4.115.181:5000/query'
 
 def get_template(file_name):
 
-    if file_name == 'init': 
-        # make an initializer json for the visualizer
-        sys.exit(0)
     # Get the current file's directory
     current_dir = os.path.dirname(os.path.abspath(__file__))
 
@@ -22,12 +19,17 @@ def get_template(file_name):
     # Open the file using the absolute path
     with open(file_path, 'r') as file:
         query_req = json.load(file)
+    
+    if file_name == 'viz': 
+        # make an initializer json for the visualizer
+        print(query_req)
+        sys.exit(0)
 
     return query_req
 
 
-def call_chat_backend(data):
-    return 1
+def call_chat_backend():
+    return "1"
 
 
 def call_annotation_service(query):

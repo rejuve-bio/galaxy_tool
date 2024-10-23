@@ -11,13 +11,16 @@
     <command detect_errors="exit_code"><![CDATA[
 
     python3 '$__tool_directory__/service.py'
-    #if $service.select == 'qb'
-          -query = $service.template 
+    #if $service.select == 'as'
+        -query = $service.template 
+        > '$output1'
 
     #elif $service.select == 'nl'
-          -prompt $service.prompt
+        -prompt $service.prompt
+        > '$output2'
     #elif $service.select == 'hg'
-          -hg $service.param1 $service.param2
+        -hg $service.param1 $service.param2
+        > '$output3'
     #end if
 
     ]]></command>
@@ -27,7 +30,7 @@
         <conditional name="service">
 
             <param type="select" name="select" label="Service">
-                    <option value="qb">Query Builder</option>
+                    <option value="as">Query Builder</option>
                     <option value="nl">Prompt</option>
                     <option value="hg">Hypothesis</option>
             </param>
@@ -37,21 +40,23 @@
             </when>
 
 
-            <when value="qb">
+            <when value="as">
 
             <param type="select" name="template" label="Pick a template">
-                    <option value="init">Use a visualizer</option>
+                    <option value="viz">Use a visualizer</option>
                     <option value='gwas'>Find all GWAS variants of a gene that are located in enhancers and identify the associated genes of these enhancers</option>
                     <option value='gtp'>Find a gene, its transcript, and the associated protein, establishing relationships of transcription and translation.</option>
                     <option value='pctp'>Find a protein-coding gene, its transcript, and the associated protein (ANKE1), establishing a transcription relationship from the gene to the transcript.</option>
             </param>
+
+            <param argument="viz" type="boolean" label="Visualize first"/>
         
             </when>
 
             <when value="hg">
 
-                <param type="text" name="param1" label="Input parameter 1 "/>
-                <param type="text" name="param2" label="Input parameter 2"/>
+                <param optional="false" type="text" name="param1" label="SNV or Indel "/>
+                <param optional="false" type="text" name="param2" label="Phenotype/ Triat"/>
             
             </when>
 
@@ -61,8 +66,8 @@
 
     <outputs>
 
-        <data name="output1" format="json" label="${tool.name}: qb | json">
-            <filter>service['select']  == "qb"</filter>
+        <data name="output1" format="json" label="${tool.name}: as | json">
+            <filter>service['select']  == "as"</filter>
         </data>
 
         <data name="output2" format="txt" label="${tool.name}: nl | txt">
