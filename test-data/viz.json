@@ -1,5 +1,4 @@
 {
-    "query": {
       "nodes": [
         {
           "id": "8cc0bd89-7f53-4e89-aab4-cbac132be68b",
@@ -78,7 +77,7 @@
           "dragging": false
         }
       ],
-      "edges": [
+      "predicates": [
         {
           "animated": true,
           "label": "relates",
@@ -176,5 +175,4 @@
         "y": 329.7835117829392,
         "zoom": 0.9478893479335839
       }
-    }
   }

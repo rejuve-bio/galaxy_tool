@@ -1,5 +1,4 @@
 {
-    "requests": {
       "nodes": [
         {
           "node_id": "n1",
@@ -31,5 +30,4 @@
           "target": "n2"
         }
      ]
-    }
   }
