@@ -20,25 +20,38 @@ def get_template(file_name):
     with open(file_path, 'r') as file:
         query_req = json.load(file)
     
-    if file_name == 'viz': 
-        # make an initializer json for the visualizer
-        print(query_req)
-        sys.exit(0)
-
     return query_req
-
 
 def call_chat_backend():
     return "1"
 
 
-def call_annotation_service(query):
+def call_annotation_service(query, argv=None):
+
+    if argv is None:
+        argv = sys.argv[1:]
+    args = _parser().parse_args(argv)
+
+    viz = args.viz
 
     query_req = None
 
     query_req = get_template(query)
 
+    if viz:
+        # Rename the 'predicates' key to 'edges'
+        if "predicates" in query_req:
+            query_req["edges"] = query_req.pop("predicates")
+        
+        query = {"query": query_req}
+        print(query)
+        exit_code = 0
+        sys.exit(exit_code)
+    else:
+        query_req = {"requests": query_req}
+
     response = requests.post(url=ANNOTATION_URL, json=query_req)
+    # wrap the result in a result to detect and send it to the cytoscape result viewer
 
     if response.status_code != 200:
       exit_code = 1
@@ -55,7 +68,6 @@ def main(argv=None):
     query = args.query
     hg = args.hg
 
-
     if prompt == None and query == None:
         raise ValueError('argument can not be empty')
 
@@ -71,6 +83,10 @@ def _parser():
     # parser.add_argument("-file", type=str, help="files to export")
     parser.add_argument("-prompt", type=str, help="NL prompt", default='No prompt')
     parser.add_argument("-query",nargs='+' , type=str, help="list of arguments", default=None)
+
+    parser.add_argument('-viz', action='store_true')
+    parser.set_defaults(viz=False)
+
     parser.add_argument("-hg",nargs='+' , type=str, help="list of arguments", default=None)
     return parser
 

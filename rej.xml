@@ -13,6 +13,9 @@
     python3 '$__tool_directory__/service.py'
     #if $service.select == 'as'
         -query = $service.template 
+        #if $service.viz
+            -viz
+        #end if 
         > '$output1'
 
     #elif $service.select == 'nl'
@@ -49,7 +52,7 @@
                     <option value='pctp'>Find a protein-coding gene, its transcript, and the associated protein (ANKE1), establishing a transcription relationship from the gene to the transcript.</option>
             </param>
 
-            <param argument="viz" type="boolean" label="Visualize first"/>
+            <param name="viz" checked="true" type="boolean" label="Visualize first"/>
         
             </when>
 
