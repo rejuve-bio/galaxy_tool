@@ -12,19 +12,31 @@
 
     python3 '$__tool_directory__/service.py'
     #if $service.select == 'as'
-        -query = $service.template 
-        #if $service.viz
-            -viz
-        #end if 
-        > '$output1'
+            -query = $service.template 
+            
+            #if $service.viz
+                -viz
+            #end if
 
-    #elif $service.select == 'nl'
-        -prompt $service.prompt
-        > '$output2'
     #elif $service.select == 'hg'
         -hg $service.param1 $service.param2
-        > '$output3'
+        ## > '$output_json'
+        
+    #elif $service.select == 'nl'
+        -prompt $service.prompt
+        ## > '$output_text'
+
     #end if
+
+    ## handle outputs types
+    #if $service.select == 'nl'
+        > '$output_text'
+    #elif $service.tabular
+        > '$output_tabular'
+    #else $service.tabular == false
+        > '$output_json'
+    #end if
+
 
     ]]></command>
 
@@ -53,6 +65,7 @@
             </param>
 
             <param name="viz" checked="true" type="boolean" label="Visualize first"/>
+            <param name="tabular" checked="true" type="boolean" label="Get tabular output"/>
         
             </when>
 
@@ -69,18 +82,17 @@
 
     <outputs>
 
-        <data name="output1" format="json" label="${tool.name}: as | json">
-            <filter>service['select']  == "as"</filter>
-        </data>
-
-        <data name="output2" format="txt" label="${tool.name}: nl | txt">
+        <data name="output_text" format="txt" label="${tool.name} | service: ${service['select']} | txt">
             <filter>service['select'] == "nl"</filter>
         </data>
 
-
-        <data name="output3" format="json" label="${tool.name}: hg | json">
-            <filter>service['select'] == "hg"</filter>
+        <data name="output_json" format="json" label="${tool.name} | service: ${service['select']} | json">
+            <filter> service['select'] == "hg" or service['select'] == "as" </filter>
         </data>
+
+        <!-- <data name="output_tabular" format="tabular" label="${tool.name} | ${service.tabular} | service: ${service['select']} | tabular">
+            <filter> service.tabular == true </filter>
+        </data> -->
 
     </outputs>
 
