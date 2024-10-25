@@ -7,6 +7,7 @@ import requests
 
 # CHAT_BACKEND_URL
 ANNOTATION_URL = 'http://46.4.115.181:5000/query'
+HYPOTHESIS_GENERATION_URL = 'http://100.67.47.42:5051'
 
 def get_template(file_name):
 
