@@ -1,10 +1,5 @@
 <tool id="rej" name="Rejuve" version="0.1.0+galaxy0" python_template_version="3.5" profile="21.05">
-    <macros>
-        <import>
-            macros.xml
-        </import>
-    </macros>
-    <expand macro="requirements" />
+
     <requirements>
     </requirements>
 
