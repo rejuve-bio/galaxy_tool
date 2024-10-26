@@ -13,14 +13,15 @@
 
     python3 '$__tool_directory__/service.py'
     #if $service.select == 'as'
-            -query = $service.template 
+            --query = $service.template 
             #if $service.viz
-                -viz
+                --viz
             #end if
     #elif $service.select == 'hg'
-        -hg $service.param1 $service.param2
+        --hg $service.param1 $service.param2
     #elif $service.select == 'nl'
-        -prompt $service.prompt
+    ## wrap in double quotes to pass as one parameter
+        --prompt "$service.prompt"
     #end if
 
     #if $service.select == 'nl'
@@ -28,7 +29,7 @@
     #else
         >'output_other'
     #end if
-
+    
     ]]></command>
 
     <inputs>
@@ -55,8 +56,8 @@
                         <option value='pctp'>Find a protein-coding gene, its transcript, and the associated protein (ANKE1), establishing a transcription relationship from the gene to the transcript.</option>
                 </param>
 
-                <param name="viz" checked="true" type="boolean" label="Visualize first"/>
-                <param name="tabular" checked="true" truevalue="true" falsevalue="false" type="boolean" label="Get tabular output"/>
+                <param name="viz" checked="false" type="boolean" label="Visualize first"/>
+                <param name="tabular" checked="false" truevalue="true" falsevalue="false" type="boolean" label="Get tabular output"/>
         
             </when>
 
@@ -65,7 +66,7 @@
                 <param optional="false" type="text" name="param1" label="SNV or Indel "/>
                 <param optional="false" type="text" name="param2" label="Phenotype/ Triat"/>
 
-                <param name="tabular" checked="true" truevalue="true" falsevalue="false" type="boolean" label="Get tabular output"/>
+                <param name="tabular" checked="false" truevalue="true" falsevalue="false" type="boolean" label="Get tabular output"/>
 
             
             </when>
@@ -88,77 +89,79 @@
         </data>
 
     </outputs>
+
     <tests>
-    <test expect_num_outputs="0">
-        <!--TODO: auto-generated test case. Please fill in the required values-->
-        <conditional name="service">
-            <param name="select" value="as"/>
-            <param name="template" value="viz"/>
-            <param name="viz" value="true"/>
-            <param name="tabular" value="true"/>
-        </conditional>
-        <output name="output_text">
-            <assert_contents>
-                <has_text text=""/>
-                <has_line line=""/>
-                <has_line_matching expression=""/>
-            </assert_contents>
-        </output>
-        <output name="output_other">
-            <assert_contents>
-                <has_text text=""/>
-                <has_line line=""/>
-                <has_line_matching expression=""/>
-            </assert_contents>
-        </output>
-    </test>
-    
-    <test expect_num_outputs="1">
-        <!--TODO: auto-generated test case. Please fill in the required values-->
-        <conditional name="service">
-            <param name="select" value="nl"/>
-            <param name="prompt" value=""/>
-        </conditional>
-        <output name="output_text">
-            <assert_contents>
-                <has_text text=""/>
-                <has_line line=""/>
-                <has_line_matching expression=""/>
-            </assert_contents>
-        </output>
-        <output name="output_other">
-            <assert_contents>
-                <has_text text=""/>
-                <has_line line=""/>
-                <has_line_matching expression=""/>
-            </assert_contents>
-        </output>
-    </test>
-    
-    <test expect_num_outputs="1">
-        <!--TODO: auto-generated test case. Please fill in the required values-->
-        <conditional name="service">
-            <param name="select" value="hg"/>
-            <param name="param1" value=""/>
-            <param name="param2" value=""/>
-            <param name="tabular" value="true"/>
-        </conditional>
-        <output name="output_text">
-            <assert_contents>
-                <has_text text=""/>
-                <has_line line=""/>
-                <has_line_matching expression=""/>
-            </assert_contents>
-        </output>
-        <output name="output_other">
-            <assert_contents>
-                <has_text text=""/>
-                <has_line line=""/>
-                <has_line_matching expression=""/>
-            </assert_contents>
-        </output>
-    </test>
-    
+
+        <test expect_num_outputs="0">
+            <!--TODO: auto-generated test case. Please fill in the required values-->
+            <conditional name="service">
+                <param name="select" value="as"/>
+                <param name="template" value="viz"/>
+                <param name="viz" value="true"/>
+                <param name="tabular" value="true"/>
+            </conditional>
+            <output name="output_text">
+                <assert_contents>
+                    <has_text text=""/>
+                    <has_line line=""/>
+                    <has_line_matching expression=""/>
+                </assert_contents>
+            </output>
+            <output name="output_other">
+                <assert_contents>
+                    <has_text text=""/>
+                    <has_line line=""/>
+                    <has_line_matching expression=""/>
+                </assert_contents>
+            </output>
+        </test>
+        
+        <test expect_num_outputs="1">
+            <!--TODO: auto-generated test case. Please fill in the required values-->
+            <conditional name="service">
+                <param name="select" value="nl"/>
+                <param name="prompt" value=""/>
+            </conditional>
+            <output name="output_text">
+                <assert_contents>
+                    <has_text text=""/>
+                    <has_line line=""/>
+                    <has_line_matching expression=""/>
+                </assert_contents>
+            </output>
+            <output name="output_other">
+                <assert_contents>
+                    <has_text text=""/>
+                    <has_line line=""/>
+                    <has_line_matching expression=""/>
+                </assert_contents>
+            </output>
+        </test>
+        
+        <test expect_num_outputs="1">
+            <!--TODO: auto-generated test case. Please fill in the required values-->
+            <conditional name="service">
+                <param name="select" value="hg"/>
+                <param name="param1" value=""/>
+                <param name="param2" value=""/>
+                <param name="tabular" value="true"/>
+            </conditional>
+            <output name="output_text">
+                <assert_contents>
+                    <has_text text=""/>
+                    <has_line line=""/>
+                    <has_line_matching expression=""/>
+                </assert_contents>
+            </output>
+            <output name="output_other">
+                <assert_contents>
+                    <has_text text=""/>
+                    <has_line line=""/>
+                    <has_line_matching expression=""/>
+                </assert_contents>
+            </output>
+        </test>
+
     </tests>
 
     <help><![CDATA[
@@ -182,22 +185,22 @@
     
         - **JSON format** or **tabular format** depending on the selected options.
 
-    **TIP:** **Steps to Initialize the Visualizer**
+            **TIP:** **Steps to Initialize the Visualizer**
 
-    **Step 1**: Choose **Query Builder** as the service.
-    
-    **Step 2**: Select the **Use a Visualizer** option and make sure you select Visualize first option.
+            **Step 1**: Choose **Query Builder** as the service.
+            
+            **Step 2**: Select the **Use a Visualizer** option and make sure you select Visualize first option.
 
-    **Step 3**: Run the tool. This will load a JSON file into the history, which you can use in the query builder visualizer.
+            **Step 3**: Run the tool. This will load a JSON file into the history, which you can use in the query builder visualizer.
 
-    **Step 4**: To visualize your output:
-    
-   - Access the JSON output file in the history and choose the **diagram** shaped option.
+            **Step 4**: To visualize your output:
+            
+        - Access the JSON output file in the history and choose the **diagram** shaped option.
 
-    **Step 5**: Open the visualizer with the name **QB** to interactively build and view your query results.
+            **Step 5**: Open the visualizer with the name **QB** to interactively build and view your query results.
 
-        This will start the visualizer, which you can use to build queries.
-    
+                This will start the visualizer, which you can use to build queries.
+            
     ]]></help>
     
     
