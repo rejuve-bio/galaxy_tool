@@ -1,0 +1,12 @@
+<macros>
+    <xml name="requirements">
+    </xml>
+    <xml name="citations">
+        <citaitions>
+        </citaitions>
+
+    </xml>
+
+    <token name="@TOOL_VERSION">0.0</token>
+    <token name="@VERSION_SUFFIX">1</token>
+</macros>

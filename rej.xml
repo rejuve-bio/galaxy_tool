@@ -1,4 +1,10 @@
 <tool id="rej" name="Rejuve" version="0.1.0+galaxy0" python_template_version="3.5" profile="21.05">
+    <macros>
+        <import>
+            macros.xml
+        </import>
+    </macros>
+    <expand macro="requirements" />
     <requirements>
     </requirements>
 
@@ -13,30 +19,20 @@
     python3 '$__tool_directory__/service.py'
     #if $service.select == 'as'
             -query = $service.template 
-            
             #if $service.viz
                 -viz
             #end if
-
     #elif $service.select == 'hg'
         -hg $service.param1 $service.param2
-        ## > '$output_json'
-        
     #elif $service.select == 'nl'
         -prompt $service.prompt
-        ## > '$output_text'
-
     #end if
 
-    ## handle outputs types
     #if $service.select == 'nl'
-        > '$output_text'
-    #elif $service.tabular
-        > '$output_tabular'
-    #else $service.tabular == false
-        > '$output_json'
+        >'output_text'
+    #else
+        >'output_other'
     #end if
-
 
     ]]></command>
 
@@ -57,15 +53,15 @@
 
             <when value="as">
 
-            <param type="select" name="template" label="Pick a template">
-                    <option value="viz">Use a visualizer</option>
-                    <option value='gwas'>Find all GWAS variants of a gene that are located in enhancers and identify the associated genes of these enhancers</option>
-                    <option value='gtp'>Find a gene, its transcript, and the associated protein, establishing relationships of transcription and translation.</option>
-                    <option value='pctp'>Find a protein-coding gene, its transcript, and the associated protein (ANKE1), establishing a transcription relationship from the gene to the transcript.</option>
-            </param>
+                <param type="select" name="template" label="Pick a template">
+                        <option value="viz">Use a visualizer</option>
+                        <option value='gwas'>Find all GWAS variants of a gene that are located in enhancers and identify the associated genes of these enhancers</option>
+                        <option value='gtp'>Find a gene, its transcript, and the associated protein, establishing relationships of transcription and translation.</option>
+                        <option value='pctp'>Find a protein-coding gene, its transcript, and the associated protein (ANKE1), establishing a transcription relationship from the gene to the transcript.</option>
+                </param>
 
-            <param name="viz" checked="true" type="boolean" label="Visualize first"/>
-            <param name="tabular" checked="true" type="boolean" label="Get tabular output"/>
+                <param name="viz" checked="true" type="boolean" label="Visualize first"/>
+                <param name="tabular" checked="true" truevalue="true" falsevalue="false" type="boolean" label="Get tabular output"/>
         
             </when>
 
@@ -73,6 +69,9 @@
 
                 <param optional="false" type="text" name="param1" label="SNV or Indel "/>
                 <param optional="false" type="text" name="param2" label="Phenotype/ Triat"/>
+
+                <param name="tabular" checked="true" truevalue="true" falsevalue="false" type="boolean" label="Get tabular output"/>
+
             
             </when>
 
@@ -86,15 +85,86 @@
             <filter>service['select'] == "nl"</filter>
         </data>
 
-        <data name="output_json" format="json" label="${tool.name} | service: ${service['select']} | json">
-            <filter> service['select'] == "hg" or service['select'] == "as" </filter>
+        <data name="output_other" format="json" label="${tool.name} | service: ${service['select']} | json or table">
+            <filter>service['select'] != "nl"</filter>
+            <change_format>
+                <when input="tabular" value="true" format="tabular"/>
+            </change_format>
         </data>
 
-        <!-- <data name="output_tabular" format="tabular" label="${tool.name} | ${service.tabular} | service: ${service['select']} | tabular">
-            <filter> service.tabular == true </filter>
-        </data> -->
-
     </outputs>
+    <tests>
+    <test expect_num_outputs="1">
+        <!--TODO: auto-generated test case. Please fill in the required values-->
+        <conditional name="service">
+            <param name="select" value="as"/>
+            <param name="template" value="viz"/>
+            <param name="viz" value="true"/>
+            <param name="tabular" value="true"/>
+        </conditional>
+        <output name="output_text">
+            <assert_contents>
+                <has_text text=""/>
+                <has_line line=""/>
+                <has_line_matching expression=""/>
+            </assert_contents>
+        </output>
+        <output name="output_other">
+            <assert_contents>
+                <has_text text=""/>
+                <has_line line=""/>
+                <has_line_matching expression=""/>
+            </assert_contents>
+        </output>
+    </test>
+    
+    <test expect_num_outputs="1">
+        <!--TODO: auto-generated test case. Please fill in the required values-->
+        <conditional name="service">
+            <param name="select" value="nl"/>
+            <param name="prompt" value=""/>
+        </conditional>
+        <output name="output_text">
+            <assert_contents>
+                <has_text text=""/>
+                <has_line line=""/>
+                <has_line_matching expression=""/>
+            </assert_contents>
+        </output>
+        <output name="output_other">
+            <assert_contents>
+                <has_text text=""/>
+                <has_line line=""/>
+                <has_line_matching expression=""/>
+            </assert_contents>
+        </output>
+    </test>
+    
+    <test expect_num_outputs="1">
+        <!--TODO: auto-generated test case. Please fill in the required values-->
+        <conditional name="service">
+            <param name="select" value="hg"/>
+            <param name="param1" value=""/>
+            <param name="param2" value=""/>
+            <param name="tabular" value="true"/>
+        </conditional>
+        <output name="output_text">
+            <assert_contents>
+                <has_text text=""/>
+                <has_line line=""/>
+                <has_line_matching expression=""/>
+            </assert_contents>
+        </output>
+        <output name="output_other">
+            <assert_contents>
+                <has_text text=""/>
+                <has_line line=""/>
+                <has_line_matching expression=""/>
+            </assert_contents>
+        </output>
+    </test>
+    
+    </tests>
 
     <help><![CDATA[
     TODO: Fill in help.
