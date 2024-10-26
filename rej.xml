@@ -89,7 +89,7 @@
 
     </outputs>
     <tests>
-    <test expect_num_outputs="1">
+    <test expect_num_outputs="0">
         <!--TODO: auto-generated test case. Please fill in the required values-->
         <conditional name="service">
             <param name="select" value="as"/>
@@ -161,41 +161,45 @@
     
     </tests>
 
-
-
     <help><![CDATA[
     
         **What does this tool do?**
         
+        This tool provides different services for querying biological data, including natural language prompts, templates for predefined queries, and hypotheses testing for variants. It can output results in JSON or tabular format, with options for visualizing the data.
+    
         **Services/Inputs**
-        
-        1. Natural Language
-        
-        2. Use a visualizer to build a query or select from templates
-        
-        3. JSON file
-        
+    
+        - **Natural Language Prompt :** Allows you to enter a custom prompt.
+        - **Query Builder :** Enables selection from predefined templates to build queries. You can also use the visualizer to customize your query.
+            - Templates available:
+                - **Use a visualizer:** Graphically build a query.
+                - **GWAS variants query:** Find all GWAS variants in enhancers and identify the associated genes.
+                - **Gene-transcript-protein :** Find relationships between a gene, its transcript, and associated proteins.
+                - **Protein-coding gene :** Establish transcription relationships from a gene to its transcript and associated protein.
+        - **Hypothesis Generation :** Enter details on SNV or Indel and associated phenotype/trait for testing hypotheses.
+    
         **Output**
-        
-        JSON format  
-        
-        .. class:: infomark
-        
-        **TIP:** **Steps to Initialize the Visualizer**
-        
-        **Step 1**: Choose the Query Builder as a service
-        
-        **Step 2**: Select the Initialize the Visualizer option
-        
-        **Step 3**: Run the tool; this will load a JSON file into the history, which you can use in the query builder
-        
-        **Step 4**: Choose the "visualize" option in the history
-        
-        **Step 5**: Open the visualizer with the name "QB"
-        
-        This will start the visualizer, which you can use to build queries. Running it in this tool will provide the output in JSON format.
+    
+        - **JSON format** or **tabular format** depending on the selected options.
+
+    **TIP:** **Steps to Initialize the Visualizer**
+
+    **Step 1**: Choose **Query Builder** as the service.
+    
+    **Step 2**: Select the **Use a Visualizer** option and make sure you select Visualize first option.
+
+    **Step 3**: Run the tool. This will load a JSON file into the history, which you can use in the query builder visualizer.
+
+    **Step 4**: To visualize your output:
+    
+   - Access the JSON output file in the history and choose the **diagram** shaped option.
+
+    **Step 5**: Open the visualizer with the name **QB** to interactively build and view your query results.
+
+        This will start the visualizer, which you can use to build queries.
     
     ]]></help>
+    
     
     <citations>
         <citation type="bibtex">
@@ -207,11 +211,5 @@
                     url = "http://hyphy.org/"}
         </citation>
     </citations>
-
-    <!-- <citations>
-        <citation type="doi">
-
-        </citation>
-    </citations> -->
 
 </tool>
