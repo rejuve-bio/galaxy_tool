@@ -82,13 +82,16 @@ def main(argv=None):
 def _parser():
     parser = argparse.ArgumentParser()
     # parser.add_argument("-file", type=str, help="files to export")
-    parser.add_argument("-prompt", type=str, help="NL prompt", default='No prompt')
-    parser.add_argument("-query",nargs='+' , type=str, help="list of arguments", default=None)
+    parser.add_argument("--prompt", type=str, help="NL prompt", default='No prompt')
+    parser.add_argument("--query",nargs='+' , type=str, help="list of arguments", default=None)
 
-    parser.add_argument('-viz', action='store_true')
+    parser.add_argument('--viz', action='store_true')
     parser.set_defaults(viz=False)
 
-    parser.add_argument("-hg",nargs='+' , type=str, help="list of arguments", default=None)
+    parser.add_argument('--tabular', action='store_true')
+    parser.set_defaults(tabular=False)
+
+    parser.add_argument("--hg",nargs='+' , type=str, help="list of arguments", default=None)
     return parser
 
 
