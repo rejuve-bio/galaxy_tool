@@ -161,7 +161,57 @@
     
     </tests>
 
+
+
     <help><![CDATA[
-    TODO: Fill in help.
+    
+        **What does this tool do?**
+        
+        **Services/Inputs**
+        
+        1. Natural Language
+        
+        2. Use a visualizer to build a query or select from templates
+        
+        3. JSON file
+        
+        **Output**
+        
+        JSON format  
+        
+        .. class:: infomark
+        
+        **TIP:** **Steps to Initialize the Visualizer**
+        
+        **Step 1**: Choose the Query Builder as a service
+        
+        **Step 2**: Select the Initialize the Visualizer option
+        
+        **Step 3**: Run the tool; this will load a JSON file into the history, which you can use in the query builder
+        
+        **Step 4**: Choose the "visualize" option in the history
+        
+        **Step 5**: Open the visualizer with the name "QB"
+        
+        This will start the visualizer, which you can use to build queries. Running it in this tool will provide the output in JSON format.
+    
     ]]></help>
+    
+    <citations>
+        <citation type="bibtex">
+            @UNPUBLISHED{spond,
+                    author = "Sergei Kosakovsky Pond",
+                    title = "HyPhy: Hypothesis Testing using Phylogenies",
+                    year = "2000",
+                    note = "http://hyphy.org/",
+                    url = "http://hyphy.org/"}
+        </citation>
+    </citations>
+
+    <!-- <citations>
+        <citation type="doi">
+
+        </citation>
+    </citations> -->
+
 </tool>
