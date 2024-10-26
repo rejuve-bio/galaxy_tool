@@ -15,5 +15,9 @@ start-planemo-prod:
 start-planemo-dev:
 	@echo "Starting Planemo server on host $(HOST) and port $(DEV_PORT)"
 	make activate-env
-	. .venv/bin/activate
 	planemo s --host=$(HOST) --port=$(DEV_PORT) --galaxy_root=$(GALAXY_ROOT)
+
+run-planemo-test:
+	@echo "Running all test cases"
+	make activate-env
+	planemo t --galaxy_root=$(GALAXY_ROOT)

@@ -1,10 +1,10 @@
 <macros>
-    <xml name="requirements">
-    </xml>
-    <xml name="citations">
-        <citaitions>
-        </citaitions>
-
+    <xml name="tests">
+        <tests>
+            <test>
+                
+            </test>
+        </tests>
     </xml>
 
     <token name="@TOOL_VERSION">0.0</token>
