@@ -6,3 +6,4 @@ biocypher-log
 venv
 .venv
 makefile
+*test*.*
