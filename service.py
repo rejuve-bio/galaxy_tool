@@ -38,10 +38,14 @@ def call_annotation_service(query, argv=None):
     query_req = None
 
     query_req = get_template(query)
+    query = {"query": query_req}
+    print(query)
+    return 
+
 
     if viz:
         # Rename the 'predicates' key to 'edges'
-        if "predicates" in query_req:
+        if "+" in query_req:
             query_req["edges"] = query_req.pop("predicates")
         
         query = {"query": query_req}

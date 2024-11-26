@@ -49,14 +49,17 @@
             <when value="as">
 
                 <param type="select" name="template" label="Pick a template">
-                        <option value="viz">Use a visualizer</option>
+                        <!-- <option value="viz">Use a visualizer</option> -->
                         <option value='gwas'>Find all GWAS variants of a gene that are located in enhancers and identify the associated genes of these enhancers</option>
                         <option value='gtp'>Find a gene, its transcript, and the associated protein, establishing relationships of transcription and translation.</option>
                         <option value='pctp'>Find a protein-coding gene, its transcript, and the associated protein (ANKE1), establishing a transcription relationship from the gene to the transcript.</option>
                 </param>
 
-                <param name="viz" checked="true" type="boolean" label="Visualize first"/>
-                <param name="tabular" checked="true" truevalue="true" falsevalue="false" type="boolean" label="Get tabular output"/>
+                <param type="select" name="output_type" label="Pick a template">
+                    <option value="viz">Viszualize</option>
+                    <option value="tabular">Get tabular output</option>
+
+                </param>
         
             </when>
 
@@ -82,9 +85,9 @@
 
         <data name="output_other" format="json" label="${tool.name} | service: ${service['select']} | json or table">
             <filter>service['select'] != "nl"</filter>
-            <change_format>
+            <!-- <change_format>
                 <when input="tabular" value="true" format="tabular"/>
-            </change_format>
+            </change_format> -->
         </data>
 
     </outputs>
