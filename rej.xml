@@ -13,21 +13,21 @@
 
     python3 '$__tool_directory__/service.py'
     #if $service.select == 'as'
-            -query = $service.template 
-            #if $service.viz
-                -viz
-            #end if
+        -query $service.template 
+        #if $service.output_type == "json" 
+            -viz
+        #end if
     #elif $service.select == 'hg'
         -hg $service.param1 $service.param2
     #elif $service.select == 'nl'
         -prompt $service.prompt
     #end if
 
-    #if $service.select == 'nl'
-        >'output_text'
-    #else
-        >'output_other'
-    #end if
+    ## #if $service.select == 'nl'
+        > 'output'
+    ## #else
+    ##     >'output_other'
+    ## #end if
 
     ]]></command>
 
@@ -37,7 +37,7 @@
 
             <param type="select" name="select" label="Service">
                     <option value="as">Query Builder</option>
-                    <option value="nl">Prompt</option>
+                    <!-- <option value="nl">Prompt</option> -->
                     <option value="hg">Hypothesis</option>
             </param>
 
@@ -55,9 +55,9 @@
                         <option value='pctp'>Find a protein-coding gene, its transcript, and the associated protein (ANKE1), establishing a transcription relationship from the gene to the transcript.</option>
                 </param>
 
-                <param type="select" name="output_type" label="Pick a template">
-                    <option value="viz">Viszualize</option>
-                    <option value="tabular">Get tabular output</option>
+                <param type="select" name="output_type" label="Select output type">
+                    <option value="json">Viszualize</option>
+                    <option value="tab">Get tabular output</option>
 
                 </param>
         
@@ -79,88 +79,96 @@
 
     <outputs>
 
-        <data name="output_text" format="txt" label="${tool.name} | service: ${service['select']} | txt">
-            <filter>service['select'] == "nl"</filter>
-        </data>
-
-        <data name="output_other" format="json" label="${tool.name} | service: ${service['select']} | json or table">
-            <filter>service['select'] != "nl"</filter>
+        <data name="output" format="json" label="${tool.name} | service: ${service['select']} | ${output_type}">
+            <!-- <filter>service['select'] == "nl"</filter> -->
             <!-- <change_format>
-                <when input="tabular" value="true" format="tabular"/>
+                <when input="output_type" value="tab" format="tabular"/>
+            </change_format>
+            <change_format>
+                <when input="output_type" value="json" format="json"/>
             </change_format> -->
         </data>
 
+        <!-- <data name="output_other" format="json" label="${tool.name} | service: ${service['select']} | json or table">
+            <filter>service['select'] != "nl"</filter>
+            <change_format>
+                <when input="tabular" value="tabular" format="tabular"/>
+            </change_format>
+        </data> -->
+
     </outputs>
+
+
     <tests>
-    <test expect_num_outputs="1">
-        <!--TODO: auto-generated test case. Please fill in the required values-->
-        <conditional name="service">
-            <param name="select" value="as"/>
-            <param name="template" value="viz"/>
-            <param name="viz" value="true"/>
-            <param name="tabular" value="true"/>
-        </conditional>
-        <output name="output_text">
-            <assert_contents>
-                <has_text text=""/>
-                <has_line line=""/>
-                <has_line_matching expression=""/>
-            </assert_contents>
-        </output>
-        <output name="output_other">
-            <assert_contents>
-                <has_text text=""/>
-                <has_line line=""/>
-                <has_line_matching expression=""/>
-            </assert_contents>
-        </output>
-    </test>
+        <test expect_num_outputs="1">
+            <!--TODO: auto-generated test case. Please fill in the required values-->
+            <conditional name="service">
+                <param name="select" value="as"/>
+                <param name="template" value="viz"/>
+                <param name="viz" value="true"/>
+                <param name="tabular" value="true"/>
+            </conditional>
+            <output name="output_text">
+                <assert_contents>
+                    <has_text text=""/>
+                    <has_line line=""/>
+                    <has_line_matching expression=""/>
+                </assert_contents>
+            </output>
+            <output name="output_other">
+                <assert_contents>
+                    <has_text text=""/>
+                    <has_line line=""/>
+                    <has_line_matching expression=""/>
+                </assert_contents>
+            </output>
+        </test>
     
-    <test expect_num_outputs="1">
-        <!--TODO: auto-generated test case. Please fill in the required values-->
-        <conditional name="service">
-            <param name="select" value="nl"/>
-            <param name="prompt" value=""/>
-        </conditional>
-        <output name="output_text">
-            <assert_contents>
-                <has_text text=""/>
-                <has_line line=""/>
-                <has_line_matching expression=""/>
-            </assert_contents>
-        </output>
-        <output name="output_other">
-            <assert_contents>
-                <has_text text=""/>
-                <has_line line=""/>
-                <has_line_matching expression=""/>
-            </assert_contents>
-        </output>
-    </test>
+        <test expect_num_outputs="1">
+            <!--TODO: auto-generated test case. Please fill in the required values-->
+            <conditional name="service">
+                <param name="select" value="nl"/>
+                <param name="prompt" value=""/>
+            </conditional>
+            <output name="output_text">
+                <assert_contents>
+                    <has_text text=""/>
+                    <has_line line=""/>
+                    <has_line_matching expression=""/>
+                </assert_contents>
+            </output>
+            <output name="output_other">
+                <assert_contents>
+                    <has_text text=""/>
+                    <has_line line=""/>
+                    <has_line_matching expression=""/>
+                </assert_contents>
+            </output>
+        </test>
     
-    <test expect_num_outputs="1">
-        <!--TODO: auto-generated test case. Please fill in the required values-->
-        <conditional name="service">
-            <param name="select" value="hg"/>
-            <param name="param1" value=""/>
-            <param name="param2" value=""/>
-            <param name="tabular" value="true"/>
-        </conditional>
-        <output name="output_text">
-            <assert_contents>
-                <has_text text=""/>
-                <has_line line=""/>
-                <has_line_matching expression=""/>
-            </assert_contents>
-        </output>
-        <output name="output_other">
-            <assert_contents>
-                <has_text text=""/>
-                <has_line line=""/>
-                <has_line_matching expression=""/>
-            </assert_contents>
-        </output>
-    </test>
+        <test expect_num_outputs="1">
+            <!--TODO: auto-generated test case. Please fill in the required values-->
+            <conditional name="service">
+                <param name="select" value="hg"/>
+                <param name="param1" value=""/>
+                <param name="param2" value=""/>
+                <param name="tabular" value="true"/>
+            </conditional>
+            <output name="output_text">
+                <assert_contents>
+                    <has_text text=""/>
+                    <has_line line=""/>
+                    <has_line_matching expression=""/>
+                </assert_contents>
+            </output>
+            <output name="output_other">
+                <assert_contents>
+                    <has_text text=""/>
+                    <has_line line=""/>
+                    <has_line_matching expression=""/>
+                </assert_contents>
+            </output>
+        </test>
     
     </tests>
 

@@ -9,6 +9,7 @@ import requests
 ANNOTATION_URL = 'http://46.4.115.181:5000/query'
 HYPOTHESIS_GENERATION_URL = 'http://100.67.47.42:5051'
 
+
 def get_template(file_name):
 
     # Get the current file's directory
@@ -39,9 +40,9 @@ def call_annotation_service(query, argv=None):
 
     query_req = get_template(query)
     query = {"query": query_req}
-    print(query)
-    return 
-
+    # print(query)
+    # exit_code = 0   
+    # sys.exit(exit_code) 
 
     if viz:
         # Rename the 'predicates' key to 'edges'
