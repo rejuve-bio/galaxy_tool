@@ -9,7 +9,6 @@ import requests
 ANNOTATION_URL = 'http://46.4.115.181:5000/query'
 HYPOTHESIS_GENERATION_URL = 'http://100.67.47.42:5051'
 
-
 def get_template(file_name):
 
     # Get the current file's directory
@@ -27,7 +26,6 @@ def get_template(file_name):
 def call_chat_backend():
     return "1"
 
-
 def call_annotation_service(query, argv=None):
 
     if argv is None:
@@ -40,9 +38,6 @@ def call_annotation_service(query, argv=None):
 
     query_req = get_template(query)
     query = {"query": query_req}
-    # print(query)
-    # exit_code = 0   
-    # sys.exit(exit_code) 
 
     if viz:
         # Rename the 'predicates' key to 'edges'
@@ -78,8 +73,13 @@ def main(argv=None):
         raise ValueError('argument can not be empty')
 
     response = call_annotation_service(query[0]) if query != None else call_chat_backend()
+    # for node in response["nodes"]:
+    #     node_data = node["data"]
+    #     print(f"{node_data['id']}\t{node_data['type']}\t{node_data['name']}\n")
+    for edge in response["edges"]:
+        edge_data = edge["data"]
+        print(f"{edge_data['source']}\t{edge_data['label']}\t{edge_data['target']}\n")
 
-    print(response)
 
     exit_code = 0
     sys.exit(exit_code)

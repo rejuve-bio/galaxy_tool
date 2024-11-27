@@ -55,8 +55,8 @@
                 </param>
 
                 <param type="select" name="output_type" label="Select output type">
-                    <option value="json">Viszualize</option>
                     <option value="tab">Get tabular output</option>
+                    <option value="json">Viszualize</option>
 
                 </param>
         
