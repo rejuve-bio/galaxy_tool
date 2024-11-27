@@ -77,7 +77,7 @@ def main(argv=None):
     if prompt == None and query == None:
         raise ValueError('argument can not be empty')
 
-    response = call_annotation_service(query[1]) if query != None else call_chat_backend()
+    response = call_annotation_service(query[0]) if query != None else call_chat_backend()
 
     print(response)
 

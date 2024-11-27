@@ -24,9 +24,9 @@
     #end if
 
     ## #if $service.select == 'nl'
-        > 'output'
+        > '$output'
     ## #else
-    ##     >'output_other'
+    ##     >'output'
     ## #end if
 
     ]]></command>
@@ -37,14 +37,13 @@
 
             <param type="select" name="select" label="Service">
                     <option value="as">Query Builder</option>
-                    <!-- <option value="nl">Prompt</option> -->
+                    <option value="nl">Prompt</option>
                     <option value="hg">Hypothesis</option>
             </param>
 
             <when value="nl">
                 <param type="text" format="data" name="prompt" label="Enter your prompt" />
             </when>
-
 
             <when value="as">
 
@@ -65,12 +64,11 @@
 
             <when value="hg">
 
-                <param optional="false" type="text" name="param1" label="SNV or Indel "/>
+                <param optional="false" type="text" name="param1" label="SNV or Indel"/>
                 <param optional="false" type="text" name="param2" label="Phenotype/ Triat"/>
 
                 <param name="tabular" checked="true" truevalue="true" falsevalue="false" type="boolean" label="Get tabular output"/>
 
-            
             </when>
 
         </conditional> 
@@ -79,17 +77,17 @@
 
     <outputs>
 
-        <data name="output" format="json" label="${tool.name} | service: ${service['select']} | ${output_type}">
+        <data name="output" format="txt" label="${tool.name} | service: ${service['select']} ">
             <!-- <filter>service['select'] == "nl"</filter> -->
-            <!-- <change_format>
+            <change_format>
                 <when input="output_type" value="tab" format="tabular"/>
             </change_format>
             <change_format>
                 <when input="output_type" value="json" format="json"/>
-            </change_format> -->
+            </change_format>
         </data>
 
-        <!-- <data name="output_other" format="json" label="${tool.name} | service: ${service['select']} | json or table">
+        <!-- <data name="output" format="json" label="${tool.name} | service: ${service['select']} | json or table">
             <filter>service['select'] != "nl"</filter>
             <change_format>
                 <when input="tabular" value="tabular" format="tabular"/>
@@ -108,14 +106,14 @@
                 <param name="viz" value="true"/>
                 <param name="tabular" value="true"/>
             </conditional>
-            <output name="output_text">
+            <output name="output">
                 <assert_contents>
                     <has_text text=""/>
                     <has_line line=""/>
                     <has_line_matching expression=""/>
                 </assert_contents>
             </output>
-            <output name="output_other">
+            <output name="output">
                 <assert_contents>
                     <has_text text=""/>
                     <has_line line=""/>
@@ -130,14 +128,14 @@
                 <param name="select" value="nl"/>
                 <param name="prompt" value=""/>
             </conditional>
-            <output name="output_text">
+            <output name="output">
                 <assert_contents>
                     <has_text text=""/>
                     <has_line line=""/>
                     <has_line_matching expression=""/>
                 </assert_contents>
             </output>
-            <output name="output_other">
+            <output name="output">
                 <assert_contents>
                     <has_text text=""/>
                     <has_line line=""/>
@@ -154,14 +152,14 @@
                 <param name="param2" value=""/>
                 <param name="tabular" value="true"/>
             </conditional>
-            <output name="output_text">
+            <output name="output">
                 <assert_contents>
                     <has_text text=""/>
                     <has_line line=""/>
                     <has_line_matching expression=""/>
                 </assert_contents>
             </output>
-            <output name="output_other">
+            <output name="output">
                 <assert_contents>
                     <has_text text=""/>
                     <has_line line=""/>
