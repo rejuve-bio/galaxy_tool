@@ -77,7 +77,7 @@
 
     <outputs>
 
-        <data name="output" format="txt" label="${tool.name} | service: ${service['select']} ">
+        <data name="output" format="txt" label="${tool.name} | ${service['select']} ">
             <!-- <filter>service['select'] == "nl"</filter> -->
             <change_format>
                 <when input="output_type" value="tab" format="tabular"/>

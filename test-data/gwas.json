@@ -1,44 +1,150 @@
-{
-    "nodes": [
-      {
-        "node_id": "n1",
-        "id": "",
-        "type": "gene",
-        "properties": {}
-      },
-      {
-        "node_id": "n2",
-        "id": "",
-        "type": "transcript",
-        "properties": {}
-      },
-      {
-        "node_id": "n3",
-        "id": "",
-        "type": "protein",
-          "properties": {
-          "protein_name": "MKKS"
+{ 
+      "nodes": [
+        {
+          "id": "f478dda6-bd11-4ce4-9188-a5c5a29dfeca",
+          "type": "custom",
+          "data": {
+            "type": "snp"
+          },
+          "position": {
+            "x": 35.859375,
+            "y": 88.7578125
+          },
+          "width": 96,
+          "height": 132,
+          "selected": false,
+          "positionAbsolute": {
+            "x": 35.859375,
+            "y": 88.7578125
+          },
+          "dragging": false
+        },
+        {
+          "id": "2da4151b-9b1c-4c53-8aa5-05bdcfcccef1",
+          "type": "custom",
+          "data": {
+            "type": "gene"
+          },
+          "position": {
+            "x": 430.93955380234166,
+            "y": -31.50848749276527
+          },
+          "width": 96,
+          "height": 132,
+          "selected": true,
+          "positionAbsolute": {
+            "x": 430.93955380234166,
+            "y": -31.50848749276527
+          },
+          "dragging": false
+        },
+        {
+          "id": "3d4f0f03-8bf2-4f46-ba26-ceecfbe19542",
+          "type": "custom",
+          "data": {
+            "type": "enhancer"
+          },
+          "position": {
+            "x": 29.066685983068624,
+            "y": -127.63988357649316
+          },
+          "width": 96,
+          "height": 132,
+          "positionAbsolute": {
+            "x": 29.066685983068624,
+            "y": -127.63988357649316
+          }
         }
-      },
-      {
-        "node_id": "n4",
-        "id": "",
-        "type": "protein",
-          "properties": {
-          "protein_name": "MKKS"
+      ],
+      "edges": [
+        {
+          "animated": true,
+          "label": "relates",
+          "markerEnd": {
+            "type": "arrowclosed",
+            "color": "black"
+          },
+          "style": {
+            "width": 5,
+            "borderWidth": 5,
+            "height": 5,
+            "strokeWidth": 2,
+            "strokeDasharray": "5,5"
+          },
+          "id": "e6f97dab-a52b-4fae-b87b-4b3d57fb0ac0",
+          "source": "f478dda6-bd11-4ce4-9188-a5c5a29dfeca",
+          "target": "2da4151b-9b1c-4c53-8aa5-05bdcfcccef1",
+          "type": "custom",
+          "data": {
+            "edgeType": "in_gene",
+            "options": [
+              {
+                "type": "gtex variant to gene expression association",
+                "label": "gtex_variant_gene",
+                "source": "snp",
+                "target": "gene"
+              },
+              {
+                "type": "upstream gene to variant association",
+                "label": "upstream_gene",
+                "source": "snp",
+                "target": "gene"
+              },
+              {
+                "type": "downstream gene to variant association",
+                "label": "downstream_gene",
+                "source": "snp",
+                "target": "gene"
+              },
+              {
+                "type": "in gene to variant association",
+                "label": "in_gene",
+                "source": "snp",
+                "target": "gene"
+              },
+              {
+                "type": "activity by contact",
+                "label": "activity_by_contact",
+                "source": "snp",
+                "target": "gene"
+              }
+            ]
+          }
+        },
+        {
+          "animated": true,
+          "label": "relates",
+          "markerEnd": {
+            "type": "arrowclosed",
+            "color": "black"
+          },
+          "style": {
+            "width": 5,
+            "borderWidth": 5,
+            "height": 5,
+            "strokeWidth": 2,
+            "strokeDasharray": "5,5"
+          },
+          "id": "3714e51c-67be-489c-9290-a674fdf79daf",
+          "source": "3d4f0f03-8bf2-4f46-ba26-ceecfbe19542",
+          "target": "2da4151b-9b1c-4c53-8aa5-05bdcfcccef1",
+          "type": "custom",
+          "data": {
+            "edgeType": "enhancer_gene",
+            "options": [
+              {
+                "type": "enhancer to gene association",
+                "label": "enhancer_gene",
+                "source": "enhancer",
+                "target": "gene"
+              }
+            ]
+          }
         }
+      ],
+      "viewport": {
+        "x": 238.4120676317035,
+        "y": 286.81884278406613,
+        "zoom": 0.2
       }
-    ],
-    "predicates": [
-      {
-        "type": "transcribed to",
-        "source": "n1",
-        "target": "n2"
-      },
-      {
-        "type": "translates to",
-        "source": "n2",
-        "target": "n3"
-      }
-    ]
 }

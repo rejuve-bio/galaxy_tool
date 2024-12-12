@@ -1,33 +1,165 @@
 {
-      "nodes": [
-        {
-          "node_id": "n1",
-          "id": "",
-          "type": "gene",
-          "properties": {
-            "gene_type": "protein_coding"
+  "nodes": [
+    {
+      "id": "80952f5c-cb5b-4c01-9e8d-96c373459168",
+      "type": "custom",
+      "data": {
+        "type": "gene"
+      },
+      "position": {
+        "x": -8.853459278134608,
+        "y": -29.236070695359416
+      },
+      "width": 96,
+      "height": 132,
+      "selected": false,
+      "positionAbsolute": {
+        "x": -8.853459278134608,
+        "y": -29.236070695359416
+      },
+      "dragging": false
+    },
+    {
+      "id": "fe0dbb9b-686e-4a60-aefb-e02daf201d43",
+      "type": "custom",
+      "data": {
+        "type": "gene"
+      },
+      "position": {
+        "x": 384.4859189688678,
+        "y": 134.2244329525066
+      },
+      "width": 96,
+      "height": 132,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 384.4859189688678,
+        "y": 134.2244329525066
+      },
+      "dragging": false
+    },
+    {
+      "id": "0471c125-a3fe-44f4-9bd5-7ed9ce9fd536",
+      "type": "custom",
+      "data": {
+        "type": "transcript"
+      },
+      "position": {
+        "x": 645.1978733983276,
+        "y": -175.43152507915806
+      },
+      "width": 96,
+      "height": 132,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 645.1978733983276,
+        "y": -175.43152507915806
+      },
+      "dragging": false
+    }
+  ],
+  "edges": [
+    {
+      "animated": true,
+      "label": "relates",
+      "markerEnd": {
+        "type": "arrowclosed",
+        "color": "black"
+      },
+      "style": {
+        "width": 5,
+        "borderWidth": 5,
+        "height": 5,
+        "strokeWidth": 2,
+        "strokeDasharray": "5,5"
+      },
+      "id": "f4c1bdec-b195-4094-812b-50410a624270",
+      "source": "80952f5c-cb5b-4c01-9e8d-96c373459168",
+      "target": "fe0dbb9b-686e-4a60-aefb-e02daf201d43",
+      "type": "custom",
+      "data": {
+        "edgeType": "coexpressed_with",
+        "options": [
+          {
+            "type": "gene to gene coexpression association",
+            "label": "coexpressed_with",
+            "source": "gene",
+            "target": "gene"
+          },
+          {
+            "type": "transcription factor to gene association",
+            "label": "tf_gene",
+            "source": "gene",
+            "target": "gene"
           }
-        },
-        {
-          "node_id": "n2",
-          "id": "",
-          "type": "transcript",
-          "properties": {}
-        },
-        {
-      "node_id": "n3",
-          "id": "",
-          "type": "protein",
-          "properties": {
-            "protein_name": "ANKE1"
+        ]
+      }
+    },
+    {
+      "animated": true,
+      "label": "relates",
+      "markerEnd": {
+        "type": "arrowclosed",
+        "color": "black"
+      },
+      "style": {
+        "width": 5,
+        "borderWidth": 5,
+        "height": 5,
+        "strokeWidth": 2,
+        "strokeDasharray": "5,5"
+      },
+      "id": "37e0103c-8024-455c-a3e8-474db91cb736",
+      "source": "80952f5c-cb5b-4c01-9e8d-96c373459168",
+      "target": "0471c125-a3fe-44f4-9bd5-7ed9ce9fd536",
+      "type": "custom",
+      "data": {
+        "edgeType": "transcribed_to",
+        "options": [
+          {
+            "type": "transcribed to",
+            "label": "transcribed_to",
+            "source": "gene",
+            "target": "transcript"
           }
-        }
-      ],
-      "predicates": [
-        {
-          "type": "transcribed to",
-          "source": "n1",
-          "target": "n2"
-        }
-     ]
+        ]
+      }
+    },
+    {
+      "animated": true,
+      "label": "relates",
+      "markerEnd": {
+        "type": "arrowclosed",
+        "color": "black",
+      },
+      "style": {
+        "width": 5,
+        "borderWidth": 5,
+        "height": 5,
+        "strokeWidth": 2,
+        "strokeDasharray": "5,5"
+      },
+      "source": "fe0dbb9b-686e-4a60-aefb-e02daf201d43",
+      "sourceHandle": null,
+      "target": "0471c125-a3fe-44f4-9bd5-7ed9ce9fd536",
+      "targetHandle": null,
+      "type": "custom",
+      "data": {
+        "options": [
+          {
+            "type": "transcribed to",
+            "label": "transcribed_to",
+            "source": "gene",
+            "target": "transcript"
+          }
+        ]
+      },
+      "id": "reactflow__edge-fe0dbb9b-686e-4a60-aefb-e02daf201d43-0471c125-a3fe-44f4-9bd5-7ed9ce9fd536",
+    }
+  ],
+  "viewport": {
+    "x": 237.3047112650321,
+    "y": 304.9378633544265,
+    "zoom": 1.1234686581673015
   }
+}

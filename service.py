@@ -6,8 +6,10 @@ import requests
 
 
 # CHAT_BACKEND_URL
-ANNOTATION_URL = 'http://46.4.115.181:5000/query'
-HYPOTHESIS_GENERATION_URL = 'http://100.67.47.42:5051'
+# ANNOTATION_URL = 'http://46.4.115.181/query' # german server, not found
+# ANNOTATION_URL = 'http://100.67.47.42:5000/query'
+ANNOTATION_URL = 'http://127.0.0.1:8000/query'
+HYPOTHESIS_GENERATION_URL = 'http://100.67.47.42:5001'
 
 def get_template(file_name):
 
@@ -38,6 +40,11 @@ def call_annotation_service(query, argv=None):
     query_req = None
 
     query_req = get_template(query)
+
+    print(query_req)
+    exit_code = 0
+    sys.exit(exit_code)
+
     query = {"query": query_req}
 
     if viz:
@@ -45,19 +52,22 @@ def call_annotation_service(query, argv=None):
         if "+" in query_req:
             query_req["edges"] = query_req.pop("predicates")
         
-        query = {"query": query_req}
+        query = query_req
         print(query)
         exit_code = 0
         sys.exit(exit_code)
     else:
         query_req = {"requests": query_req}
-
-    response = requests.post(url=ANNOTATION_URL, json=query_req)
-    # wrap the result in a result to detect and send it to the cytoscape result viewer
-
-    if response.status_code != 200:
-      exit_code = 1
-      sys.exit(exit_code)
+        BEARER_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoic29tZV9pZCJ9.4YPM_qKZzYWtnEoSj9W7F7IlOMmn_pUXl6Pwb1u0UMY"
+        response = requests.post(
+            url=ANNOTATION_URL,
+            json=query_req,
+            headers={"Authorization": f"Bearer {BEARER_TOKEN}"}
+        )
+        if response.status_code != 200:
+            print(response)
+            exit_code = 0
+            sys.exit(exit_code)
 
     parse_json = response.json()
     table_output = ""
@@ -76,12 +86,20 @@ def main(argv=None):
     query = args.query
     hg = args.hg
 
-    if prompt == None and query == None:
+    if prompt != None:
+        
+        print(call_chat_backend(prompt))
+        
+    elif query != None:
+        
+        print(call_annotation_service(query[0]))
+        
+    elif hg != None:
+        print("hypothesis generation")
+        
+    else:
         raise ValueError('argument can not be empty')
 
-    response = call_annotation_service(query[0]) if query != None else call_chat_backend(prompt)
-
-    print(response)
 
     exit_code = 0
     sys.exit(exit_code)
@@ -89,7 +107,7 @@ def main(argv=None):
 def _parser():
     parser = argparse.ArgumentParser()
     # parser.add_argument("-file", type=str, help="files to export")
-    parser.add_argument("-prompt", type=str, help="NL prompt", default='No prompt')
+    parser.add_argument("-prompt", type=str, help="NL prompt", default=None)
     parser.add_argument("-query",nargs='+' , type=str, help="list of arguments", default=None)
 
     parser.add_argument('-viz', action='store_true')
